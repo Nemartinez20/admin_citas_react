@@ -80,3 +80,19 @@ button:hover{
     background-color: rgb(5, 41, 150);
 
 }
+
+.alerta{
+    /* border: 1px solid yellow; */
+    background-color: white;
+    border-radius: 5px;
+    height: 38px;
+    display:flex ;
+    align-items: center;
+    justify-content: center;
+}
+.error{
+    font-weight: 700;
+    text-align: center;
+    font-size: 17px;
+    color: red;
+}

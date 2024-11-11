@@ -1,13 +1,18 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-export default function Form() {
+export default function Form({ crearCita }) {
   const [cita, setCita] = useState({
-    nombre: "",
+    nombremascota: "",
     propietario: "",
     fecha: "",
     hora: "",
     sintomas: "",
   });
+
+  const [error, setError] = useState(false);
+
+  //===================FUNCIONES===================================
 
   //funcion que se ejecuta cada vex que el usuario escribe algo
   const actualizarFormulario = (e) => {
@@ -18,26 +23,54 @@ export default function Form() {
   };
 
   //Extraer los valores de la cita
-  const { nombre, propietario, fecha, hora, sintomas } = cita;
+  const { nombremascota, propietario, fecha, hora, sintomas } = cita;
 
-  //Cuando el usuario opresiona el boton
+  //Cuando el usuario presiona el boton submit
   const submitCita = (e) => {
     e.preventDefault();
-    console.log("enviando form.. ");
+
+    //validar
+    if (
+      nombremascota.trim() === "" ||
+      propietario.trim() === "" ||
+      fecha.trim() === "" ||
+      hora.trim() === "" ||
+      sintomas.trim() === ""
+    ) {
+      setError(true);
+      console.log("los campos no deben ir vacios");
+      return;
+    }
+
+    //Eiminar msj previo de error
+    setError(false);
+
+    // Asignar ID
+    cita.id = uuidv4();
+    crearCita(cita);
+    //Crear cita
+
+    //Reiniciar Form
   };
 
   return (
     <>
       <h2 className="subtitle">Crear Cita</h2>
+
       <form onSubmit={submitCita}>
+        {error ? (
+          <div className="alerta">
+            <p className="error">Todos los campos on obligatorios</p>
+          </div>
+        ) : null}
         <div className="campo">
-          <label htmlFor="nombre">Nombre</label>
+          <label htmlFor="nombremascota">Nombre</label>
           <input
             type="text"
             placeholder="nombre de mascota"
-            name="nombre"
+            name="nombremascota"
             onChange={actualizarFormulario}
-            value={nombre}
+            value={nombremascota}
           />
         </div>
         <div className="campo">
