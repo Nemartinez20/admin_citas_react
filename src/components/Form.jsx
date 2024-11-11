@@ -47,10 +47,17 @@ export default function Form({ crearCita }) {
 
     // Asignar ID
     cita.id = uuidv4();
-    crearCita(cita);
-    //Crear cita
 
+    //Crear cita
+    crearCita(cita);
     //Reiniciar Form
+    setCita({
+      nombremascota: "",
+      propietario: "",
+      fecha: "",
+      hora: "",
+      sintomas: "",
+    });
   };
 
   return (
