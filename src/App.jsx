@@ -1,10 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Form from "./components/Form";
 import Citas from "./components/Citas";
 
 function App() {
-  const [citasAll, setCitasAll] = useState([]);
+  //Citas en local Storage
+  let citasIniciales = JSON.parse(localStorage.getItem("citas"));
+  if (!citasIniciales) {
+    citasIniciales = [];
+  }
+
+  const [citasAll, setCitasAll] = useState(citasIniciales);
+
+  //useEffect para realizar tareas cuando las citas cmbien o el arreglo de dependecias
+
+  useEffect(() => {
+    let citasIniciales = JSON.parse(localStorage.getItem("citas"));
+    if (citasIniciales) {
+      localStorage.setItem("citas", JSON.stringify(citasAll));
+    } else {
+      localStorage.setItem("citas", JSON.stringify([]));
+    }
+  }, [citasAll]);
 
   //Crear citas
   const crearCita = (cita) => {
@@ -18,6 +35,12 @@ function App() {
     // console.log(citas);
   };
 
+  // titulo condicional
+  const titulo =
+    citasAll.length === 0
+      ? "No hay citas | Agrega una "
+      : "Administra tus citas";
+
   //Render a la vista
   return (
     <>
@@ -28,14 +51,10 @@ function App() {
             <Form crearCita={crearCita} />
           </div>
           <div className="container__citas item">
-            <h2 className="subtitle">Administra tus citas</h2>
-            {citasAll.length === 0 ? (
-              <h2 className="subtitle">No hay citas | Agrega una </h2>
-            ) : (
-              citasAll.map((cita) => (
-                <Citas key={cita.id} cita={cita} eliminarCita={eliminarCita} />
-              ))
-            )}
+            <h2 className="subtitle">{titulo}</h2>
+            {citasAll.map((cita) => (
+              <Citas key={cita.id} cita={cita} eliminarCita={eliminarCita} />
+            ))}
           </div>
         </section>
         <footer className="footer">

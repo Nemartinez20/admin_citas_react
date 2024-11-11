@@ -7,6 +7,6 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-##Proyecto de  crear citas para pacientes  con react
+## Proyecto de  crear citas para pacientes  con react
 Este es un proyecto para crear , eliminar y editar citas con react,
 ademas  implementando localstorage
